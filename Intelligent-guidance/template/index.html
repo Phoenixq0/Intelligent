@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>智能眼科导诊</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>眼科症状自查系统</h1>
+
+        <!-- 症状输入表单 -->
+        <form method="POST">
+            <textarea name="symptom" rows="5"
+                      placeholder="请详细描述您的眼部症状（例如：眼睛发红、干涩、视力模糊等）"></textarea>
+
+            {% if error %}
+                <div class="error">{{ error }}</div>
+            {% endif %}
+
+            <button type="submit">开始诊断</button>
+        </form>
+
+        <!-- 诊断结果展示 -->
+        {% if diagnosis %}
+            <div class="result-box">
+                <h2>诊断结果</h2>
+                <div class="diagnosis">
+                    <p><strong>初步判断：</strong>{{ diagnosis }}</p>
+                    <p><strong>专家建议：</strong>{{ advice|safe }}</p>  <!-- safe用于保留富文本格式 -->
+                    <p class="time">{{ inference_time }}</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
